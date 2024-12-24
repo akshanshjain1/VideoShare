@@ -36,7 +36,7 @@ router.route("/")
         ]),
         publishAVideo
     );
-router.route('/generatetext').get(getvideoautogeneration)
+router.route('/generatetext').post(getvideoautogeneration)
 
 
 router.route("/:videoId").delete(deleteVideo)
