@@ -1,14 +1,13 @@
 import { Router } from "express";
-import registeruser from "../controller/user.controller.js ";
 import { upload } from "../middlewares/multer.middleware.js";
 import { addabout, addwatchhistory, changecurrentpassword, generateaihelp, getcurrentuser, 
     getuserchannelprofile, getuserchannelprofilebyId, getwatchhistory, 
     loginuser, logoutuser, 
-    refreshaccesstoken, updateaccountdetails, 
+    refreshaccesstoken, registernewuser, updateaccountdetails, 
     updateuseravatar, updateusercoverimage } from "../controller/user.controller.js";
 import { verifyjwt } from "../middlewares/auth.middleware.js";
 const router=Router()
-router.route('/register').post(
+router.route("/registernewuser").post(
     upload.fields([
         {
             name:"avatar",
@@ -19,7 +18,8 @@ router.route('/register').post(
 
         }
     ]),
-    registeruser)
+    registernewuser)
+// router.route("/registernewuser").get(registernewuser)
 router.route('/login').post(loginuser)
 
 //secured routes

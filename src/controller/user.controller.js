@@ -26,7 +26,9 @@ const generateAccessAndRefreshTokens=async(userid)=>{
     }
 }
 
-const registeruser=asynchandler(async (req,res)=>{
+const registernewuser=asynchandler(async (req,res)=>{
+    
+    
     //get user detail from frontend
     //validation -not empty
     // check if user already exist:through username and email
@@ -65,8 +67,10 @@ const registeruser=asynchandler(async (req,res)=>{
             coverlocalpath=req.files.coverimage[0].path;
     const avatar=await uploadoncloudinary(avatarlocalpath);
     if(!avatar) throw new Apierror(500,'file not uploaded');
-    const coverimage=await uploadoncloudinary(coverlocalpath)
-    if(!coverimage) throw new Apierror(500,'file not uploaded');
+    let coverimage;
+    if(coverlocalpath){
+         coverimage=await uploadoncloudinary(coverlocalpath)
+        if(!coverimage) throw new Apierror(500,'file not uploaded');}
     
     const user=await User.create({
         fullname:fullname,
@@ -86,9 +90,9 @@ const registeruser=asynchandler(async (req,res)=>{
     if(!createduser){
         throw new Apierror(500,'something went wrong while registeration')
     }
-    return res.status(201).json(
-        new Apiresponse(200,createduser,'user registered successfully')
-    )
+     return res.status(201).json(
+         new Apiresponse(200,createduser,'user registered successfully')
+     )
 }
 )
 const loginuser=asynchandler(async(req,res)=>{
@@ -506,9 +510,9 @@ const addabout=asynchandler(async(req,res)=>{
     const user=await User.findByIdAndUpdate(userId,{$set:{about:about}});
     return res.json(new Apiresponse(200,[],'About added'))
 })
-export default registeruser
+
 export
-   {
+   {registernewuser,
     loginuser,logoutuser,
     refreshaccesstoken,changecurrentpassword,
     getcurrentuser,updateaccountdetails,
