@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import {
-    addthumbnail,
+
     addVideoToPlaylist,
     createPlaylist,
     deletePlaylist,
@@ -9,6 +9,7 @@ import {
     getVideoDetails,
     removeVideoFromPlaylist,
     updatePlaylist,
+    updatethumbnail,
 } from "../controller/playlist.controller.js"
 import {verifyjwt} from "../middlewares/auth.middleware.js"
 import { upload } from '../middlewares/multer.middleware.js';
@@ -29,6 +30,8 @@ router.route("/remove/:videoId/:playlistId").patch(removeVideoFromPlaylist);
 
 router.route("/user/:userId").get(getUserPlaylists);
 router.route('/video/:playlistId').get(getVideoDetails)
-router.route('/addthumbnail/:playlistId').patch(upload.single('thumbnail'),addthumbnail)
+
+//router.route('/addthumbnail/:playlistId').patch(upload.single('thumbnail'),addthumbnail)
+router.route('/updatethumbnail/:playlistId').patch(upload.single('thumbnail'),updatethumbnail)
 
 export default router
