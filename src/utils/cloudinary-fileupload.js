@@ -7,7 +7,7 @@ cloudinary.config({
     api_secret:process.env.CLOUDINARY_API_SECRET,
 
 })
-// file upload
+
 const uploadoncloudinary=async(localfilepath)=>{
     try{
         if(!localfilepath) {
@@ -21,15 +21,15 @@ const uploadoncloudinary=async(localfilepath)=>{
                     console.log('error in upload',error);
             else console.log('success in upload')    
         })
-        // file uploaded successfully
+        
         
         fs.unlinkSync(localfilepath);
         return response;
 
     }
     catch(error){
-        fs.unlinkSync(localfilepath) // remove the locally saved tempory file as
-            //the upload fail;
+        fs.unlinkSync(localfilepath) 
+           
         
         return null;
     }
